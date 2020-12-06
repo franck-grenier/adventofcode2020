@@ -12,22 +12,24 @@ use App\Service\AdventOfCode2020Service;
 class AdventOfCode2020Controller extends AbstractController
 {
     private $AOC2020Service;
+    private $twig;
 
-    public function __construct(AdventOfCode2020Service $AOC2020Service)
+    public function __construct(AdventOfCode2020Service $AOC2020Service, Environment $twig)
     {
         $this->AOC2020Service = $AOC2020Service;
+        $this->twig = $twig;
     }
 
     /**
      * @Route("/adventofcode2020/", name="aoc2020_index")
      */
-    public function index(RouterInterface $router, Environment $twig): Response
+    public function index(RouterInterface $router): Response
     {
         $aoc2020_routes = array_filter($router->getRouteCollection()->all(), function ($route_name) {
             return str_starts_with($route_name, 'aoc2020');
         }, ARRAY_FILTER_USE_KEY);
 
-        return new Response($twig->render("aoc2020/index.html.twig", array("routes" => array_keys($aoc2020_routes))));
+        return new Response($this->twig->render("aoc2020/index.html.twig", array("routes" => array_keys($aoc2020_routes))));
     }
 
     /**
@@ -50,7 +52,7 @@ class AdventOfCode2020Controller extends AbstractController
             }
         }
 
-        return new Response($answer);
+        return new Response($this->twig->render("base.html.twig", array("answer" => $answer)));
     }
 
     /**
@@ -76,7 +78,7 @@ class AdventOfCode2020Controller extends AbstractController
             }
         }
 
-        return new Response($answer);
+        return new Response($this->twig->render("base.html.twig", array("answer" => $answer)));
     }
 
     /**
@@ -87,7 +89,7 @@ class AdventOfCode2020Controller extends AbstractController
         $passwords = $this->AOC2020Service->getAOCInput("day2.txt");
         $good_passwords = $this->AOC2020Service->checkPasswordsCompliance($passwords, 1);
 
-        return new Response(count($good_passwords));
+        return new Response($this->twig->render("base.html.twig", array("answer" => count($good_passwords))));
     }
 
     /**
@@ -98,7 +100,7 @@ class AdventOfCode2020Controller extends AbstractController
         $passwords = $this->AOC2020Service->getAOCInput("day2.txt");
         $good_passwords = $this->AOC2020Service->checkPasswordsCompliance($passwords, 2);
 
-        return new Response(count($good_passwords));
+        return new Response($this->twig->render("base.html.twig", array("answer" => count($good_passwords))));
     }
 
     /**
@@ -109,7 +111,7 @@ class AdventOfCode2020Controller extends AbstractController
         $slope = $this->AOC2020Service->getAOCInput("day3.txt");
         $number_of_trees = $this->AOC2020Service->SkiOnSlopeAndHitTrees($slope, 3, 1);
 
-        return new Response($number_of_trees);
+        return new Response($this->twig->render("base.html.twig", array("answer" => $number_of_trees)));
     }
 
     /**
@@ -126,7 +128,7 @@ class AdventOfCode2020Controller extends AbstractController
             $score *= $this->AOC2020Service->SkiOnSlopeAndHitTrees($slope, $style[0], $style[1]);
         }
 
-        return new Response($score);
+        return new Response($this->twig->render("base.html.twig", array("answer" => $score)));
     }
 
 }
