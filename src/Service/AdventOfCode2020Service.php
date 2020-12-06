@@ -6,7 +6,7 @@ class AdventOfCode2020Service
 {
     public function getAOCInput(string $filename): array
     {
-        return file(__DIR__ . "\..\Input\\" . $filename, FILE_IGNORE_NEW_LINES);
+        return file(__DIR__ . "/../Input/" . $filename, FILE_IGNORE_NEW_LINES);
     }
 
     public function SkiOnSlopeAndHitTrees(array $slope = [], int $right = 0, int $down = 0): int

@@ -19,7 +19,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/", name="aoc2020_index")
+     * @Route("/adventofcode2020/", name="aoc2020_index")
      */
     public function index(RouterInterface $router, Environment $twig): Response
     {
@@ -31,7 +31,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/day1/part1", name="aoc2020_day1_part1")
+     * @Route("/adventofcode2020/day1/part1", name="aoc2020_day1_part1")
      */
     public function day1Part1(): Response
     {
@@ -54,7 +54,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/day1/part2", name="aoc2020_day1_part2")
+     * @Route("/adventofcode2020/day1/part2", name="aoc2020_day1_part2")
      */
     public function day1Part2(): Response
     {
@@ -80,7 +80,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/day2/part1", name="aoc2020_day2_part1")
+     * @Route("/adventofcode2020/day2/part1", name="aoc2020_day2_part1")
      */
     public function day2Part1(): Response
     {
@@ -101,7 +101,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/day2/part2", name="aoc2020_day2_part2")
+     * @Route("/adventofcode2020/day2/part2", name="aoc2020_day2_part2")
      */
     public function day2Part2(): Response
     {
@@ -122,7 +122,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/day3/part1", name="aoc2020_day3_part1")
+     * @Route("/adventofcode2020/day3/part1", name="aoc2020_day3_part1")
      */
     public function day3Part1(): Response
     {
@@ -133,7 +133,7 @@ class AdventOfCode2020Controller extends AbstractController
     }
 
     /**
-     * @Route("/advent/of/code2020/day3/part2", name="aoc2020_day3_part2")
+     * @Route("/adventofcode2020/day3/part2", name="aoc2020_day3_part2")
      */
     public function day3Part2(): Response
     {
