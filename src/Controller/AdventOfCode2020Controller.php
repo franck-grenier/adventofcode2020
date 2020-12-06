@@ -85,17 +85,7 @@ class AdventOfCode2020Controller extends AbstractController
     public function day2Part1(): Response
     {
         $passwords = $this->AOC2020Service->getAOCInput("day2.txt");
-
-        $good_passwords = array_filter($passwords, function ($password) {
-            $password_data = explode(" ", $password);
-
-            $expected_char = str_replace(":", "", $password_data[1]);
-            $expected_char_range = explode("-", $password_data[0]);
-            $password_to_check = $password_data[2];
-
-            $expected_char_count = substr_count($password_to_check, $expected_char);
-            return in_array($expected_char_count, range($expected_char_range[0], $expected_char_range[1]));
-        });
+        $good_passwords = $this->AOC2020Service->checkPasswordsCompliance($passwords, 1);
 
         return new Response(count($good_passwords));
     }
@@ -106,17 +96,7 @@ class AdventOfCode2020Controller extends AbstractController
     public function day2Part2(): Response
     {
         $passwords = $this->AOC2020Service->getAOCInput("day2.txt");
-
-        $good_passwords = array_filter($passwords, function ($password) {
-            $password_data = explode(" ", $password);
-
-            $expected_char = str_replace(":", "", $password_data[1]);
-            $expected_char_pos = explode("-", $password_data[0]);
-            $password_array_to_check = str_split($password_data[2]);
-
-            return $expected_char === $password_array_to_check[$expected_char_pos[0] - 1] xor
-                $expected_char === $password_array_to_check[$expected_char_pos[1] - 1];
-        });
+        $good_passwords = $this->AOC2020Service->checkPasswordsCompliance($passwords, 2);
 
         return new Response(count($good_passwords));
     }

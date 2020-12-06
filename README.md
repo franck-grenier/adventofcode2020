@@ -15,3 +15,6 @@ symfony server:start
 
 Goto https://127.0.0.1:8000/adventofcode2020/
 
+## Advent of Code personal inputs
+
+You can find the puzzles inputs in `/src/Input/` folder. Update them with yours.
