@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Advent of Code 2020 - Index{% endblock %}
+
+{% block body %}
+    <h2>My Advent Of Code 2020</h2>
+
+    <ul>
+    {% for route in routes %}
+        <li><a href="{{ path(route) }}">{{ route }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
