@@ -131,4 +131,15 @@ class AdventOfCode2020Controller extends AbstractController
         return new Response($this->twig->render("base.html.twig", array("answer" => $score)));
     }
 
+    /**
+     * @Route("/adventofcode2020/day4/part1", name="aoc2020_day4_part1")
+     */
+    public function day4Part1(): Response
+    {
+        $passports = $this->AOC2020Service->parsePassportsInput($this->AOC2020Service->getAOCInput("day4.txt", false));
+        $good_passports = $this->AOC2020Service->checkPassportsCompleteness($passports);
+
+        return new Response($this->twig->render("base.html.twig", array("answer" => count($good_passports))));
+    }
+
 }

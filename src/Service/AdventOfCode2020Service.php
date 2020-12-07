@@ -4,20 +4,26 @@ namespace App\Service;
 
 class AdventOfCode2020Service
 {
-    public function getAOCInput(string $filename): array
+    public function getAOCInput(string $filename, bool $asArray = true)
     {
-        return file(__DIR__ . "/../Input/" . $filename, FILE_IGNORE_NEW_LINES);
+        $path = __DIR__ . "/../Input/" . $filename;
+
+        if ($asArray) {
+            return file($path, FILE_IGNORE_NEW_LINES);
+        } else {
+            return file_get_contents($path);
+        }
     }
 
 
-    public function checkPasswordsCompliance(array $pass_to_check, int $compliance = 1):array
+    public function checkPasswordsCompliance(array $pass_to_check, int $compliance = 1): array
     {
         $good_pass = array_filter($pass_to_check, function ($pass) use ($compliance) {
             $pass_data = explode(" ", $pass);
             $pass_to_check = $pass_data[2];
             $expected_char = str_replace(":", "", $pass_data[1]);
 
-            switch($compliance) {
+            switch ($compliance) {
                 case 1:
                     $expected_char_range = explode("-", $pass_data[0]);
                     $expected_char_count = substr_count($pass_to_check, $expected_char);
@@ -39,7 +45,7 @@ class AdventOfCode2020Service
         while ($row < count($slope)) {
             $col = ($col + $right) % strlen($slope[0]);
             $row += $down;
-            if ($row == count($slope)) {
+            if ($row >= count($slope)) {
                 break;
             }
 
@@ -50,5 +56,50 @@ class AdventOfCode2020Service
 
         // Ouch !
         return $number_of_trees;
+    }
+
+    public function parsePassportsInput(string $passports): array
+    {
+        // Step 1 - Split string in blank lines and get an array of passports
+        $step1 = explode(PHP_EOL . PHP_EOL, $passports);
+
+        // Step 2 - Cleanup passports data and get a non-associative array of each passport data
+        $step2 = array_map(function ($passport) {
+            return explode(" ", str_replace(PHP_EOL, " ", $passport));
+        }, $step1);
+
+        // Step 3 - Rebuild passports data as an associative array
+        $parsed_passports = [];
+        foreach ($step2 as $pass_data) {
+            foreach ($pass_data as $data) {
+                $data_array[explode(":", $data)[0]] = explode(":", $data)[1];
+            }
+            ksort($data_array);
+            $parsed_passports[] = $data_array;
+            $data_array = [];
+        }
+
+        return $parsed_passports;
+    }
+
+    public function checkPassportsCompleteness(array $passports): array
+    {
+        $passport_data = [
+            "byr", // (Birth Year)
+            "iyr", // (Issue Year)
+            "eyr", // (Expiration Year)
+            "hgt", // (Height)
+            "hcl", // (Hair Color)
+            "ecl", // (Eye Color)
+            "pid", // (Passport ID),
+            "cid"  // (Country ID)
+        ];
+        sort($passport_data);
+        $optional_data = ["cid"];
+
+        return array_filter($passports, function ($passport) use ($passport_data, $optional_data) {
+            $diff = array_values(array_diff($passport_data, array_keys($passport)));
+            return (empty($diff) || $diff === $optional_data);
+        });
     }
 }
