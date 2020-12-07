@@ -60,6 +60,7 @@ class AdventOfCode2020Service
         return $number_of_trees;
     }
 
+    // Sure we can do better here...
     public function parsePassportsInput(string $passports): array
     {
         // Step 1 - Split string in blank lines and get an array of passports
