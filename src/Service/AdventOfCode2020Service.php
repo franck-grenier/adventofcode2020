@@ -2,6 +2,8 @@
 
 namespace App\Service;
 
+use App\Service\AOC2020PassportValidator;
+
 class AdventOfCode2020Service
 {
     public function getAOCInput(string $filename, bool $asArray = true)
@@ -102,4 +104,23 @@ class AdventOfCode2020Service
             return (empty($diff) || $diff === $optional_data);
         });
     }
+
+    public function checkPassportsValidity(array $passports): array
+    {
+        $passports = $this->checkPassportsCompleteness($passports);
+        $validator = new AOC2020PassportValidator();
+
+        return array_filter($passports, function ($passport) use ($validator) {
+            $check = true;
+            foreach ($passport as $key => $pass_data) {
+                if (!$validator->{strtoupper($key) . "Validator"}($pass_data)) {
+                    $check = false;
+                    break;
+                }
+            }
+            return $check;
+        });
+    }
+
+
 }
