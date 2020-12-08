@@ -29,7 +29,8 @@ class AdventOfCode2020Controller extends AbstractController
             return str_starts_with($route_name, 'aoc2020');
         }, ARRAY_FILTER_USE_KEY);
 
-        return new Response($this->twig->render("aoc2020/index.html.twig", array("routes" => array_keys($aoc2020_routes))));
+        return new Response($this->twig->render("aoc2020/index.html.twig",
+            array("routes" => array_keys($aoc2020_routes))));
     }
 
     /**
@@ -122,7 +123,7 @@ class AdventOfCode2020Controller extends AbstractController
         $slope = $this->AOC2020Service->getAOCInput("day3.txt");
         $score = 1;
 
-        $slope_styles = [ [1,1] , [3,1] , [5,1] , [7,1] , [1,2] ];
+        $slope_styles = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]];
 
         foreach ($slope_styles as $style) {
             $score *= $this->AOC2020Service->SkiOnSlopeAndHitTrees($slope, $style[0], $style[1]);
@@ -151,6 +152,17 @@ class AdventOfCode2020Controller extends AbstractController
         $valid_passports = $this->AOC2020Service->checkPassportsValidity($passports);
 
         return new Response($this->twig->render("base.html.twig", array("answer" => count($valid_passports))));
+    }
+
+    /**
+     * @Route("/adventofcode2020/day5/part1", name="aoc2020_day5_part1")
+     */
+    public function day5Part1(): Response
+    {
+        $boarding_passes = $this->AOC2020Service->getAOCInput("day5.txt");
+        $seat_ids = $this->AOC2020Service->computeSeatIDs($boarding_passes);
+
+        return new Response($this->twig->render("base.html.twig", array("answer" => max($seat_ids))));
     }
 
 }
