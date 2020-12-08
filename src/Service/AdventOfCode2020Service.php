@@ -17,7 +17,6 @@ class AdventOfCode2020Service
         }
     }
 
-
     public function checkPasswordsCompliance(array $pass_to_check, int $compliance = 1): array
     {
         $good_pass = array_filter($pass_to_check, function ($pass) use ($compliance) {
@@ -61,8 +60,10 @@ class AdventOfCode2020Service
     }
 
     // Sure we can do better here...
-    public function parsePassportsInput(string $passports): array
+    public function parsePassportsInput(string $input): array
     {
+        $passports = $this->getAOCInput($input, false);
+
         // Step 1 - Split string in blank lines and get an array of passports
         $step1 = explode(PHP_EOL . PHP_EOL, $passports);
 

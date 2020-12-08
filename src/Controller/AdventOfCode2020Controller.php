@@ -136,7 +136,7 @@ class AdventOfCode2020Controller extends AbstractController
      */
     public function day4Part1(): Response
     {
-        $passports = $this->AOC2020Service->parsePassportsInput($this->AOC2020Service->getAOCInput("day4.txt", false));
+        $passports = $this->AOC2020Service->parsePassportsInput("day4.txt");
         $good_passports = $this->AOC2020Service->checkPassportsCompleteness($passports);
 
         return new Response($this->twig->render("base.html.twig", array("answer" => count($good_passports))));
@@ -147,7 +147,7 @@ class AdventOfCode2020Controller extends AbstractController
      */
     public function day4Part2(): Response
     {
-        $passports = $this->AOC2020Service->parsePassportsInput($this->AOC2020Service->getAOCInput("day4.txt", false));
+        $passports = $this->AOC2020Service->parsePassportsInput("day4.txt");
         $valid_passports = $this->AOC2020Service->checkPassportsValidity($passports);
 
         return new Response($this->twig->render("base.html.twig", array("answer" => count($valid_passports))));
