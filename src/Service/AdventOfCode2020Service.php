@@ -137,7 +137,7 @@ class AdventOfCode2020Service
 
     public function computeSeatRow(string $path_to_row): int
     {
-        $row = $rows = range(0, 127);
+        $row = range(0, 127);
         foreach (str_split($path_to_row) as $position) {
             $row = array_slice($row,
                 ($position === 'F') ? 0 : count($row) / 2,
@@ -149,7 +149,7 @@ class AdventOfCode2020Service
 
     public function computeSeatCol(string $path_to_col): int
     {
-        $col = $cols = range(0, 8);
+        $col = range(0, 8);
         foreach (str_split($path_to_col) as $position) {
             $col = array_slice($col,
                 ($position === 'L') ? 0 : count($col) / 2,
