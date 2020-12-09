@@ -161,8 +161,18 @@ class AdventOfCode2020Controller extends AbstractController
     {
         $boarding_passes = $this->AOC2020Service->getAOCInput("day5.txt");
         $seat_ids = $this->AOC2020Service->computeSeatIDs($boarding_passes);
-
         return new Response($this->twig->render("base.html.twig", array("answer" => max($seat_ids))));
     }
 
+    /**
+     * @Route("/adventofcode2020/day5/part2", name="aoc2020_day5_part2")
+     */
+    public function day5Part2(): Response
+    {
+        $boarding_passes = $this->AOC2020Service->getAOCInput("day5.txt");
+        $seat_ids = $this->AOC2020Service->computeSeatIDs($boarding_passes);
+        $missing_passenger = $this->AOC2020Service->findMissingPassenger($seat_ids);
+
+        return new Response($this->twig->render("base.html.twig", array("answer" => $missing_passenger)));
+    }
 }

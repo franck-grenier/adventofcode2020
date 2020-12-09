@@ -127,35 +127,19 @@ class AdventOfCode2020Service
     public function computeSeatIDs(array $boarding_passes): array
     {
         foreach ($boarding_passes as $pass) {
-            $seat_row = $this->computeSeatRow(substr($pass, 0, 7));
-            $seat_col = $this->computeSeatCol(substr($pass, -3));
-            $seat_ids[] = $seat_row * 8 + $seat_col;
+            $seat_ids[] = bindec(strtr($pass, "FBLR", "0101"));
         }
 
         return $seat_ids;
     }
 
-    public function computeSeatRow(string $path_to_row): int
+    public function findMissingPassenger(array $seat_ids): int
     {
-        $row = range(0, 127);
-        foreach (str_split($path_to_row) as $half) {
-            $row = array_slice($row,
-                ($half === 'F') ? 0 : count($row) / 2,
-                count($row) / 2);
+        sort($seat_ids);
+
+        foreach ($seat_ids as $index => $seat_id) {
+            if ($seat_ids[$index + 1] != $seat_id + 1)
+                return $seat_id + 1;
         }
-
-        return $row[0];
-    }
-
-    public function computeSeatCol(string $path_to_col): int
-    {
-        $col = range(0, 8);
-        foreach (str_split($path_to_col) as $half) {
-            $col = array_slice($col,
-                ($half === 'L') ? 0 : count($col) / 2,
-                count($col) / 2);
-        }
-
-        return $col[0];
     }
 }
